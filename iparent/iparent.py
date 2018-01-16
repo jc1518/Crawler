@@ -72,10 +72,12 @@ if __name__ == '__main__':
     Password = getpass.getpass('Password: ')
     session = requests.session()
     session.cookies = http.cookiejar.LWPCookieJar('cookie')
-    login(Username, Password)
-    try:
-        session.cookies.load(ignore_discard=True)
-        download_doc()
-    except IOError:
-        print('Cookies is not found')
+    if login(Username, Password):
+        try:
+            session.cookies.load(ignore_discard=True)
+            download_doc()
+        except IOError:
+            print('Cookies is not found')
+
+
 
